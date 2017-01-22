@@ -21,28 +21,28 @@ int pkg_cnt_unwrap(void *in_ptr, u8 max_blobs, u32* bytes_read, u8* *out_ptr, u3
 	u32				inc_read;
 
 	if(in_ptr == NULL){
-		_printf("%s: in_ptr is NULL\n", __FUNCTION__);
+		_printf("%s: in_ptr is NULL\n", __func__);
 		return RET_FAIL;
 	}
 	if(out_size == NULL){
-		_printf("%s: out_size is NULL\n", __FUNCTION__);
+		_printf("%s: out_size is NULL\n", __func__);
 		return RET_FAIL;
 	}
 
 	in_start = (u8*)in_ptr + (u8)sizeof(*c);
 
 	if(c->magic[2] != '0'){
-		_printf("%s: unknown block version\n", __FUNCTION__);
+		_printf("%s: unknown block version\n", __func__);
 		return RET_FAIL;
 	}
 	data_size = c->length;
 	data = malloc(c->length_unpack);
 	if(data == NULL){
-		_printf("%s: malloc'd data is NULL\n", __FUNCTION__);
+		_printf("%s: malloc'd data is NULL\n", __func__);
 		return RET_FAIL;
 	}
 	if(c->crc != crc32(0, in_start, c->length)){
-		_printf("%s: CRC32 failed\n", __FUNCTION__);
+		_printf("%s: CRC32 failed\n", __func__);
 		return RET_FAIL;
 	}
 	if(c->magic[3] == 'C'){
